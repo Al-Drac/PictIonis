@@ -2,8 +2,11 @@ package com.example.aldrac.pictionis;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -18,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static final int RC_SIGN_IN = 123;
-
 
 
 
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_main);
+
     }
 
 
@@ -62,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
                 // ...
             }
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.navigation, menu);
+        return true;
     }
 
 

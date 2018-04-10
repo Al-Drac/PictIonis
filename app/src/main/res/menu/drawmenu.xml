@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:icon="@drawable/ic_brush_black_24dp" android:id="@+id/setStyle" android:titleCondensed="Set Style" android:title="Set Style">
+        <menu>
+            <item android:id="@+id/normal" android:title="Normal"/>
+            <item android:id="@+id/emboss" android:title="Emboss"/>
+            <item android:id="@+id/blur" android:title="Blur"/>
+        </menu>
+    </item>
+
+
+    <item android:icon="@drawable/ic_size_24dp" android:id="@+id/setSize" android:titleCondensed="Set Size" android:title="Set Size">
+        <menu>
+            <item android:id="@+id/setSizeBrushSmall" android:title="Small"/>
+            <item android:id="@+id/setSizeBrushMedium" android:title="Medium"/>
+            <item android:id="@+id/setSizeBrushLarge" android:title="Large"/>
+        </menu>
+    </item>
+
+    <item android:icon="@drawable/ic_color_24dp" android:id="@+id/setColor" android:titleCondensed="Set Color" android:title="Set Color">
+        <menu>
+            <item android:icon="@drawable/ic_black_24dp" android:id="@+id/setCurrentColorBlack" android:title="Black"/>
+            <item android:icon="@drawable/ic_green_24dp" android:id="@+id/setCurrentColorGreen" android:title="Green"/>
+            <item android:icon="@drawable/ic_blue_24dp" android:id="@+id/setCurrentColorBlue" android:title="Blue"/>
+            <item android:icon="@drawable/ic_red_24dp" android:id="@+id/setCurrentColorRed" android:title="Red"/>
+        </menu>
+    </item>
+
+    <item
+        android:icon="@drawable/ic_clear_24dp"
+        android:id="@+id/clear"
+        app:showAsAction="never"
+        android:title="Clear" />
+</menu>
