@@ -11,7 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
         import android.util.DisplayMetrics;
-        import android.view.Menu;
+import android.util.Log;
+import android.view.Menu;
         import android.view.MenuInflater;
         import android.view.MenuItem;
 import android.widget.TextView;
@@ -25,6 +26,10 @@ public class DrawPlace extends AppCompatActivity {
 
     private TextView mTextMessage;
 
+
+    private static final String TAG = "MyActivity";
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -34,8 +39,10 @@ public class DrawPlace extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
+                    Log.i(TAG, "hello");
                     return true;
                 case R.id.navigation_dashboard:
+                    Log.i(TAG, "hello2");
                     //mTextMessage.setText(R.string.title_dashboard);
                     //return true;
                     in=new Intent(getBaseContext(),DrawPlace.class);
@@ -47,6 +54,7 @@ public class DrawPlace extends AppCompatActivity {
 
 
                 case R.id.navigation_notifications:
+                    Log.i(TAG, "hello");
                     mTextMessage.setText(R.string.title_notifications);
                     return true;
             }

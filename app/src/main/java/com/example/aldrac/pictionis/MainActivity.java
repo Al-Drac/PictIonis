@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -70,6 +71,26 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        Intent in;
+        switch (item.getItemId()) {
+            case R.id.navigation_home:
+                return true;
+            case R.id.navigation_dashboard:
+                in=new Intent(getBaseContext(),DrawPlace.class);
+                startActivity(in);
+                overridePendingTransition(0, 0);
+                return true;
+            case R.id.navigation_notifications:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
