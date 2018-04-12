@@ -38,9 +38,13 @@ public class DrawPlace extends AppCompatActivity {
             Intent in;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    Log.i(TAG, "hello");
-                    return true;
+                    //mTextMessage.setText(R.string.title_home);
+                    //Log.i(TAG, "hello");
+                    //return true;
+                    in=new Intent(getBaseContext(),MainActivity.class);
+                    startActivity(in);
+                    overridePendingTransition(0, 0);
+                    break;
                 case R.id.navigation_dashboard:
                     Log.i(TAG, "hello2");
                     //mTextMessage.setText(R.string.title_dashboard);
@@ -70,14 +74,17 @@ public class DrawPlace extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paintview);
+
+        /*mTextMessage = (TextView) findViewById(R.id.message);*/
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         paintView = (PaintView) findViewById(R.id.paintView);
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         paintView.init(metrics);
 
-        /*mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);*/
+
     }
 
     @Override

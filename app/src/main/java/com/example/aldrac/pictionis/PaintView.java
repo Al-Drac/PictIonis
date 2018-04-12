@@ -55,15 +55,6 @@ public class PaintView extends View {
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
 
-    /*-------------------------------------------------------------------
-    // Write a message to the database test etna
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
-    DatabaseReference drawingBoardRef = database.getReference("DrawingBoard");
-    String TAG = "homepage";
-
-    -------------------------------------------------------------------*/
-
 
     public PaintView(Context context) {
         this(context, null);
@@ -144,33 +135,6 @@ public class PaintView extends View {
 
             mCanvas.drawPath(fp.path, mPaint);
 
-            /*____________TEST_CONNEXION__________________
-
-            addDrawingBoard();
-            drawingBoardRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-
-                    Iterable<DataSnapshot> list = dataSnapshot.getChildren();
-
-                    for (DataSnapshot data : list) {
-                        DrawingBoards value = data.getValue(DrawingBoards.class);
-                        Log.d(TAG, "paint is: " + value.getPaint());
-                        Log.d(TAG, "path is: " + value.getPath());
-                        Log.d(TAG, "created at is: " + value.getCreated_at());
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    Log.w(TAG, "Failed to read value.", error.toException());
-                }
-            });
-
-            _____________________________________________________*/
 
         }
 
@@ -232,22 +196,6 @@ public class PaintView extends View {
     }
 
 
-    //TEST AJOUT CONNEXION//
-
-
-/*
-
-    private void addDrawingBoard(){
-        String key = drawingBoardRef.push().getKey();
-        DrawingBoards drawingBoards = new DrawingBoards();
-        drawingBoards.setCreated_at(new Date().getTime());
-        drawingBoards.setPaint(mPaint);
-        drawingBoards.setPath(mPath);
-        //System.out.println(Arrays.toString(drawingBoards.toArray()));
-        System.out.println(drawingBoards);
-        drawingBoardRef.child(key).setValue(drawingBoards);
-    }
-*/
 
 }
 
