@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -33,20 +34,27 @@ public class MainActivity extends AppCompatActivity {
             Intent in;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    //mTextMessage.setText(R.string.title_home);
+                    //Log.i(TAG, "hello");
+                    //return true;
+                    in=new Intent(getBaseContext(),MainActivity.class);
+                    startActivity(in);
+                    overridePendingTransition(0, 0);
+                    break;
                 case R.id.navigation_dashboard:
                     //mTextMessage.setText(R.string.title_dashboard);
                     //return true;
-                    in = new Intent(getBaseContext(), DrawPlace.class);
+                    in=new Intent(getBaseContext(),DrawPlace.class);
                     startActivity(in);
                     overridePendingTransition(0, 0);
                     break;
 
 
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
+                    in = new Intent(getBaseContext(), Chat.class);
+                    startActivity(in);
+                    overridePendingTransition(0, 0);
+                    break;
             }
             return false;
         }

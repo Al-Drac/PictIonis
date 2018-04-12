@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".DrawPlace" />
+        <activity
+            android:name=".Chat"
+            android:label="@string/title_activity_chat"></activity>
     </application>
 
 </manifest>

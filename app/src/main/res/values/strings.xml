@@ -3,4 +3,5 @@
     <string name="title_home">Settings</string>
     <string name="title_dashboard">Draw</string>
     <string name="title_notifications">Chat</string>
+    <string name="title_activity_chat">Chat</string>
 </resources>

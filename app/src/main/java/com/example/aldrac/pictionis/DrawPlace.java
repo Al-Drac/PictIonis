@@ -46,7 +46,6 @@ public class DrawPlace extends AppCompatActivity {
                     overridePendingTransition(0, 0);
                     break;
                 case R.id.navigation_dashboard:
-                    Log.i(TAG, "hello2");
                     //mTextMessage.setText(R.string.title_dashboard);
                     //return true;
                     in=new Intent(getBaseContext(),DrawPlace.class);
@@ -55,12 +54,11 @@ public class DrawPlace extends AppCompatActivity {
                     break;
 
 
-
-
                 case R.id.navigation_notifications:
-                    Log.i(TAG, "hello");
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
+                    in = new Intent(getBaseContext(), Chat.class);
+                    startActivity(in);
+                    overridePendingTransition(0, 0);
+                    break;
             }
             return false;
         }
