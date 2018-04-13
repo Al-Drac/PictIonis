@@ -18,6 +18,9 @@ android {
         }
     }
 }
+//test tuto chat
+
+//fin test
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -40,5 +43,14 @@ dependencies {
 
     // Required only if Twitter login support is required
     compile("com.twitter.sdk.android:twitter-core:3.0.0@aar") { transitive = true }
+
+
+    //test chat
+
+    //fin test chat
+
+    compile 'com.firebaseui:firebase-ui:0.6.0'
+
+
 }
 apply plugin: 'com.google.gms.google-services'
