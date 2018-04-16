@@ -126,6 +126,7 @@ public class Chat extends AppCompatActivity {
         }
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -145,7 +146,7 @@ public class Chat extends AppCompatActivity {
                     });
         }
         return true;
-    }
+    }*/
 
     private void showAllOldMessages() {
         loggedInUserName = FirebaseAuth.getInstance().getCurrentUser().getUid();
