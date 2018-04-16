@@ -79,7 +79,9 @@ public class Chat extends AppCompatActivity {
         final EditText input = (EditText) findViewById(R.id.input);
         listView = (ListView) findViewById(R.id.list);
 
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+        showAllOldMessages();
+
+        /*if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             // Start sign in/sign up activity
             startActivityForResult(AuthUI.getInstance()
                     .createSignInIntentBuilder()
@@ -87,7 +89,7 @@ public class Chat extends AppCompatActivity {
         } else {
             // User is already signed in, show list of messages
             showAllOldMessages();
-        }
+        }*/
 
 
         fab.setOnClickListener(new View.OnClickListener() {
