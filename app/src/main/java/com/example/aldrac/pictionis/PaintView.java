@@ -14,6 +14,7 @@ package com.example.aldrac.pictionis;
         import android.graphics.MaskFilter;
         import android.graphics.Paint;
         import android.graphics.Path;
+        import android.graphics.PorterDuff;
         import android.util.AttributeSet;
         import android.util.DisplayMetrics;
         import android.util.Log;
@@ -26,6 +27,7 @@ package com.example.aldrac.pictionis;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
+        import java.util.HashMap;
         import java.util.List;
 
         import java.util.ArrayList;
@@ -53,6 +55,12 @@ public class PaintView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+    private Line myLine;
+
+    //test firebase
+    FirebaseDatabase database;
+    DatabaseReference ref;
+    //fin test firebase
 
 
 
@@ -62,6 +70,12 @@ public class PaintView extends View {
 
     public PaintView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        //test firebase
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference("drawing");
+        //fin test firebase
+
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -143,6 +157,8 @@ public class PaintView extends View {
     }
 
     private void touchStart(float x, float y) {
+        myLine = new Line(currentColor,emboss,blur,strokeWidth);
+        myLine.addPoint((int)x , (int)y);
         mPath = new Path();
         FingerPath fp = new FingerPath(currentColor, emboss, blur, strokeWidth, mPath);
         paths.add(fp);
@@ -157,16 +173,22 @@ public class PaintView extends View {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
 
+        /*int x1 = (int)x / 8;
+        int y1 = (int)y / 8;
+*/
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
             mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             mX = x;
             mY = y;
+            myLine.addPoint((int)mX,(int)mY);
         }
     }
 
     private void touchUp() {
 
         mPath.lineTo(mX, mY);
+        myLine.addPoint((int)mX,(int)mY);
+        ref.setValue(myLine);
 
 
 
@@ -195,8 +217,70 @@ public class PaintView extends View {
         return true;
     }
 
+    public void addEventListener(){
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("debug reception data", "je suis la");
+                if (dataSnapshot.getValue() != null){
+                    Log.d("debug reception data", "je suis ici");
+                    Line line = dataSnapshot.getValue(Line.class);
+                    mPaint.setColor(line.getColor());
+                    mPaint.setStrokeWidth(line.getStrokeWidth());
+                    if (line.isEmboss())
+                        mPaint.setMaskFilter(mEmboss);
+                    else if (line.isBlur())
+                        mPaint.setMaskFilter(mBlur);
+                    drawLine(line);
+                    invalidate();
+                }
+                else{
+                    mCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+                    mPath.reset();
+                    invalidate();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void drawLine(Line line){
+        if(mCanvas != null){
+            Log.d("debug drawLine","je suis dans drawline");
+            mPaint.setColor(line.getColor());
+            mCanvas.drawPath(getPathForPoints(line.getListP(),1.0f),mPaint);
+        }
+    }
+
+    public static Path getPathForPoints(List<PointP> points, double scale) {
+        Path path = new Path();
+        scale = scale * 8;
+        PointP current = points.get(0);
+        path.moveTo(Math.round(scale * current.getX()), Math.round(scale * current.getY()));
+        PointP next = null;
+        for (int i = 1; i < points.size(); ++i) {
+            Log.d("X", Integer.toString(current.getX()));
+            next = points.get(i);
+            path.quadTo(
+                    Math.round(scale * current.getX()), Math.round(scale * current.getY()),
+                    Math.round(scale * (next.getX() + current.getX()) / 2), Math.round(scale * (next.getY() + current.getY()) / 2)
+            );
+            current = next;
+        }
+        if (next != null) {
+            path.lineTo(Math.round(scale * next.getX()), Math.round(scale * next.getY()));
+        }
+
+        return path;
+    }
+
 
 
 }
 
-
+// ON TOUCH END GITHUB COURS REGARDER CREATE SCALED VERSION SEGMENT

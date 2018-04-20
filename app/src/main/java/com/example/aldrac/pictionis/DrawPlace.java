@@ -78,6 +78,9 @@ public class DrawPlace extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         paintView = (PaintView) findViewById(R.id.paintView);
+
+        paintView.addEventListener();
+
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         paintView.init(metrics);

@@ -1,6 +1,7 @@
 package com.example.aldrac.pictionis;
 
 import android.graphics.Path;
+import android.util.Log;
 
 
 /**
