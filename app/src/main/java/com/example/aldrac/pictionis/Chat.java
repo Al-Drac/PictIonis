@@ -79,9 +79,9 @@ public class Chat extends AppCompatActivity {
         final EditText input = (EditText) findViewById(R.id.input);
         listView = (ListView) findViewById(R.id.list);
 
-        showAllOldMessages();
+        //showAllOldMessages();
 
-        /*if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             // Start sign in/sign up activity
             startActivityForResult(AuthUI.getInstance()
                     .createSignInIntentBuilder()
@@ -89,7 +89,7 @@ public class Chat extends AppCompatActivity {
         } else {
             // User is already signed in, show list of messages
             showAllOldMessages();
-        }*/
+        }
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +100,7 @@ public class Chat extends AppCompatActivity {
                 } else {
                     FirebaseDatabase.getInstance()
                             .getReference()
+                            .child("chat")
                             .push()
                             .setValue(new ChatMessage(input.getText().toString(),
                                     FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
@@ -153,7 +154,7 @@ public class Chat extends AppCompatActivity {
         Log.d("Main", "user id: " + loggedInUserName);
 
         adapter = new MessageAdapter(this, ChatMessage.class, R.layout.item_in_message,
-                FirebaseDatabase.getInstance().getReference());
+                FirebaseDatabase.getInstance().getReference().child("chat"));
         listView.setAdapter(adapter);
     }
 

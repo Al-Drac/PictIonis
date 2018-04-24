@@ -20,6 +20,14 @@ public class Line {
         this.strokeWidth = strokeWidth;
     }
 
+    public Line(int color, boolean emboss, boolean blur, int strokeWidth, List<PointP> points) {
+        this.color = color;
+        this.emboss = emboss;
+        this.blur = blur;
+        this.strokeWidth = strokeWidth;
+        this.listP = points;
+    }
+
     public boolean isBlur() {
         return blur;
     }

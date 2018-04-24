@@ -21,6 +21,8 @@ package com.example.aldrac.pictionis;
         import android.view.MotionEvent;
         import android.view.View;
 
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.database.ChildEventListener;
         import com.google.firebase.database.DataSnapshot;
         import com.google.firebase.database.DatabaseError;
         import com.google.firebase.database.DatabaseReference;
@@ -30,6 +32,7 @@ package com.example.aldrac.pictionis;
         import java.util.HashMap;
         import java.util.List;
 
+        import com.google.firebase.database.FirebaseDatabase;
         import java.util.ArrayList;
         import java.util.Arrays;
         import java.util.Date;
@@ -45,6 +48,7 @@ public class PaintView extends View {
     private Path mPath;
     private Paint mPaint;
     private ArrayList<FingerPath> paths = new ArrayList<>();
+    private ArrayList<Line> lines = new ArrayList<>();
     private int currentColor;
     private int backgroundColor = DEFAULT_BG_COLOR;
     private int strokeWidth;
@@ -70,7 +74,6 @@ public class PaintView extends View {
 
     public PaintView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         //test firebase
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("drawing");
@@ -85,9 +88,37 @@ public class PaintView extends View {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setXfermode(null);
         mPaint.setAlpha(0xff);
-
         mEmboss = new EmbossMaskFilter(new float[]{1, 1, 1}, 0.4f, 6, 3.5f);
         mBlur = new BlurMaskFilter(5, BlurMaskFilter.Blur.NORMAL);
+
+        ref.child("lines").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Line line = dataSnapshot.getValue(Line.class);
+                drawLine(line);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void init(DisplayMetrics metrics) {
@@ -185,13 +216,9 @@ public class PaintView extends View {
     }
 
     private void touchUp() {
-
         mPath.lineTo(mX, mY);
         myLine.addPoint((int)mX,(int)mY);
-        ref.setValue(myLine);
-
-
-
+        ref.child("lines").push().setValue(new Line(myLine.getColor(), myLine.isEmboss(), myLine.isBlur(), myLine.getStrokeWidth(), new ArrayList<PointP>(myLine.getListP())));
     }
 
     @Override
