@@ -226,7 +226,9 @@ public class PaintView extends View {
                     Log.d("debug reception data", "je suis ici");
                     Line line = dataSnapshot.getValue(Line.class);
                     mPaint.setColor(line.getColor());
+                    Log.d("color", Integer.toString(line.getColor()));
                     mPaint.setStrokeWidth(line.getStrokeWidth());
+                    Log.d("width", Integer.toString(line.getStrokeWidth()));
                     if (line.isEmboss())
                         mPaint.setMaskFilter(mEmboss);
                     else if (line.isBlur())
@@ -253,7 +255,8 @@ public class PaintView extends View {
         if(mCanvas != null){
             Log.d("debug drawLine","je suis dans drawline");
             mPaint.setColor(line.getColor());
-            mCanvas.drawPath(getPathForPoints(line.getListP(),1.0f),mPaint);
+            mPaint.setStrokeWidth(line.getStrokeWidth());
+            mCanvas.drawPath(getPathForPoints(line.getListP(), 1.0f),mPaint);
         }
     }
 
