@@ -22,10 +22,9 @@
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
@@ -34,37 +33,43 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        app:srcCompat="@drawable/ic_send_black_24dp"
+        android:layout_marginBottom="12dp"
         android:tint="@android:color/white"
-        app:fabSize="mini" />
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_send_black_24dp" />
 
     <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/fab">
+        android:id="@+id/textfab"
+        android:layout_width="347dp"
+        android:layout_height="52dp"
+        android:layout_above="@id/list"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
+        app:layout_constraintRight_toLeftOf="@id/fab">
 
         <EditText
             android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Input" />
+            android:layout_above="@id/list"
+            android:hint="Input"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </android.support.design.widget.TextInputLayout>
 
     <ListView
         android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/fab"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="16dp"
         android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll" />
+        android:transcriptMode="alwaysScroll"
+        app:layout_constraintBottom_toTopOf="@+id/textfab"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 <!--
