@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Line {
-       private int color;
+        private int color;
+        private int heightScreen;
+        private int widthScreen;
         private boolean emboss;
         private boolean blur;
         private int strokeWidth;
@@ -20,10 +22,12 @@ public class Line {
         this.strokeWidth = strokeWidth;
     }
 
-    public Line(int color, boolean emboss, boolean blur, int strokeWidth, List<PointP> points) {
+    public Line(int color, boolean emboss, boolean blur, int strokeWidth,int height ,int width,List<PointP> points) {
         this.color = color;
         this.emboss = emboss;
         this.blur = blur;
+        this.heightScreen = height;
+        this.widthScreen = width;
         this.strokeWidth = strokeWidth;
         this.listP = points;
     }
@@ -71,5 +75,21 @@ public class Line {
     public void addPoint(int x, int y){
         PointP p = new PointP(x , y);
         listP.add(p);
+    }
+
+    public int getHeightScreen() {
+        return heightScreen;
+    }
+
+    public void setHeightScreen(int heightScreen) {
+        this.heightScreen = heightScreen;
+    }
+
+    public int getWidthScreen() {
+        return widthScreen;
+    }
+
+    public void setWidthScreen(int widthScreen) {
+        this.widthScreen = widthScreen;
     }
 }

@@ -242,7 +242,10 @@ public class PaintView extends View {
     private void touchUp() {
         mPath.lineTo(mX, mY);
         myLine.addPoint((int)mX,(int)mY);
-        ref.child("lines").push().setValue(new Line(myLine.getColor(), myLine.isEmboss(), myLine.isBlur(), myLine.getStrokeWidth(), new ArrayList<PointP>(myLine.getListP())));
+
+        Log.d("debug height","je suis "+ this.getHeight());
+        Log.d("debug width","je suis " + this.getWidth());
+        ref.child("lines").push().setValue(new Line(myLine.getColor(), myLine.isEmboss(), myLine.isBlur(), myLine.getStrokeWidth(), this.getHeight(), this.getWidth(),new ArrayList<PointP>(myLine.getListP())));
     }
 
     @Override
@@ -277,27 +280,33 @@ public class PaintView extends View {
             Log.d("debug drawLine","je suis dans drawline");
             mPaint.setColor(line.getColor());
             mPaint.setStrokeWidth(line.getStrokeWidth());
-            FingerPath fp = new FingerPath(line.getColor(), line.isEmboss(), line.isBlur(), line.getStrokeWidth(), getPathForPoints(line.getListP(),1.0));
+            int x  = this.getHeight();
+            int y  = this.getWidth();
+            double scaleX = (double) this.getHeight() / (double) line.getHeightScreen();
+            double scaleY = (double) this.getWidth() / (double) line.getWidthScreen();
+            Log.d("debug scaleLine","scaleX" + scaleX);
+            Log.d("debug scaleLine","scaleY" + scaleY);
+            FingerPath fp = new FingerPath(line.getColor(), line.isEmboss(), line.isBlur(), line.getStrokeWidth(), getPathForPoints(line.getListP(),scaleX, scaleY));
             paths.add(fp);
         }
     }
 
-    public static Path getPathForPoints(List<PointP> points, double scale) {
+    public static Path getPathForPoints(List<PointP> points, double scaleY, double scaleX) {
         Path path = new Path();
         PointP current = points.get(0);
-        path.moveTo(Math.round(scale * current.getX()), Math.round(scale * current.getY()));
+        path.moveTo(Math.round(scaleX * (double) current.getX()), Math.round(scaleY * (double) current.getY()));
         PointP next = null;
         for (int i = 1; i < points.size(); ++i) {
-            Log.d("X", Integer.toString(current.getX()));
+            Log.d("X", Integer.toString( current.getX()));
             next = points.get(i);
             path.quadTo(
-                    Math.round(scale * current.getX()), Math.round(scale * current.getY()),
-                    Math.round(scale * (next.getX() + current.getX()) / 2), Math.round(scale * (next.getY() + current.getY()) / 2)
+                    Math.round(scaleX * (double) current.getX()), Math.round(scaleY * (double) current.getY()),
+                    Math.round(scaleX * ((double) next.getX() + (double) current.getX()) / 2), Math.round(scaleY * (next.getY() + (double) current.getY()) / 2)
             );
             current = next;
         }
         if (next != null) {
-            path.lineTo(Math.round(scale * next.getX()), Math.round(scale * next.getY()));
+            path.lineTo(Math.round(scaleX * (double)next.getX()), Math.round(scaleY * (double) next.getY()));
         }
 
         return path;
