@@ -131,6 +131,9 @@ public class DrawPlace extends AppCompatActivity {
             case R.id.setCurrentColorRed:
                 paintView.setCurrentColor(Color.RED);
                 return true;
+            case R.id.erase:
+                paintView.setCurrentColor(Color.WHITE);
+                return true;
             case R.id.getWord:
                 paintView.getWord();
                 return true;
