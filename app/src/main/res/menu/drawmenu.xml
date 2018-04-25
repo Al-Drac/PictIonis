@@ -30,7 +30,18 @@
 
     <item
         android:icon="@drawable/ic_clear_24dp"
+        android:id="@+id/erase"
+        app:showAsAction="never"
+        android:title="Gomme" />
+
+    <item
+        android:icon="@drawable/ic_clear_24dp"
         android:id="@+id/clear"
         app:showAsAction="never"
         android:title="Clear" />
+
+    <item
+        android:id="@+id/getWord"
+        app:showAsAction="never"
+        android:title="Mot à dessiner" />
 </menu>

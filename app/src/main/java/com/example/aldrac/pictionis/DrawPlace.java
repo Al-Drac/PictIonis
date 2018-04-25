@@ -11,7 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
         import android.util.DisplayMetrics;
-        import android.view.Menu;
+import android.util.Log;
+import android.view.Menu;
         import android.view.MenuInflater;
         import android.view.MenuItem;
 import android.widget.TextView;
@@ -25,6 +26,10 @@ public class DrawPlace extends AppCompatActivity {
 
     private TextView mTextMessage;
 
+
+    private static final String TAG = "MyActivity";
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -33,8 +38,13 @@ public class DrawPlace extends AppCompatActivity {
             Intent in;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    //mTextMessage.setText(R.string.title_home);
+                    //Log.i(TAG, "hello");
+                    //return true;
+                    in=new Intent(getBaseContext(),MainActivity.class);
+                    startActivity(in);
+                    overridePendingTransition(0, 0);
+                    break;
                 case R.id.navigation_dashboard:
                     //mTextMessage.setText(R.string.title_dashboard);
                     //return true;
@@ -44,11 +54,11 @@ public class DrawPlace extends AppCompatActivity {
                     break;
 
 
-
-
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
+                    in = new Intent(getBaseContext(), Chat.class);
+                    startActivity(in);
+                    overridePendingTransition(0, 0);
+                    break;
             }
             return false;
         }
@@ -62,14 +72,20 @@ public class DrawPlace extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paintview);
+
+        /*mTextMessage = (TextView) findViewById(R.id.message);*/
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         paintView = (PaintView) findViewById(R.id.paintView);
+
+        paintView.addEventListener();
+
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         paintView.init(metrics);
 
-        /*mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);*/
+
     }
 
     @Override
@@ -114,6 +130,12 @@ public class DrawPlace extends AppCompatActivity {
                 return true;
             case R.id.setCurrentColorRed:
                 paintView.setCurrentColor(Color.RED);
+                return true;
+            case R.id.erase:
+                paintView.setCurrentColor(Color.WHITE);
+                return true;
+            case R.id.getWord:
+                paintView.getWord();
                 return true;
         }
 

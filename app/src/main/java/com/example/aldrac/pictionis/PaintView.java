@@ -5,6 +5,7 @@ package com.example.aldrac.pictionis;
  */
 
 
+        import android.app.AlertDialog;
         import android.content.Context;
         import android.graphics.Bitmap;
         import android.graphics.BlurMaskFilter;
@@ -14,23 +15,29 @@ package com.example.aldrac.pictionis;
         import android.graphics.MaskFilter;
         import android.graphics.Paint;
         import android.graphics.Path;
+        import android.graphics.PorterDuff;
         import android.util.AttributeSet;
         import android.util.DisplayMetrics;
         import android.util.Log;
         import android.view.MotionEvent;
         import android.view.View;
 
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.database.ChildEventListener;
         import com.google.firebase.database.DataSnapshot;
         import com.google.firebase.database.DatabaseError;
         import com.google.firebase.database.DatabaseReference;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.database.ValueEventListener;
 
+        import java.util.HashMap;
         import java.util.List;
 
+        import com.google.firebase.database.FirebaseDatabase;
         import java.util.ArrayList;
         import java.util.Arrays;
         import java.util.Date;
+        import java.util.Random;
 
 
 public class PaintView extends View {
@@ -43,6 +50,8 @@ public class PaintView extends View {
     private Path mPath;
     private Paint mPaint;
     private ArrayList<FingerPath> paths = new ArrayList<>();
+    private ArrayList<Line> lines = new ArrayList<>();
+    //private ArrayList<String> words = new ArrayList<>();
     private int currentColor;
     private int backgroundColor = DEFAULT_BG_COLOR;
     private int strokeWidth;
@@ -53,16 +62,13 @@ public class PaintView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+    private Line myLine;
 
+    //test firebase
+    FirebaseDatabase database;
+    DatabaseReference ref;
+    //fin test firebase
 
-    /*-------------------------------------------------------------------
-    // Write a message to the database test etna
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
-    DatabaseReference drawingBoardRef = database.getReference("DrawingBoard");
-    String TAG = "homepage";
-
-    -------------------------------------------------------------------*/
 
 
     public PaintView(Context context) {
@@ -71,6 +77,11 @@ public class PaintView extends View {
 
     public PaintView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        //test firebase
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference("drawing");
+        //fin test firebase
+
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -80,9 +91,40 @@ public class PaintView extends View {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setXfermode(null);
         mPaint.setAlpha(0xff);
-
         mEmboss = new EmbossMaskFilter(new float[]{1, 1, 1}, 0.4f, 6, 3.5f);
         mBlur = new BlurMaskFilter(5, BlurMaskFilter.Blur.NORMAL);
+
+        ref.child("lines").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Line line = dataSnapshot.getValue(Line.class);
+                drawLine(line);
+                invalidate();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                paths.clear();
+                normal();
+                invalidate();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void init(DisplayMetrics metrics) {
@@ -114,6 +156,7 @@ public class PaintView extends View {
 
     public void clear() {
         backgroundColor = DEFAULT_BG_COLOR;
+        ref.removeValue();
         paths.clear();
         normal();
         invalidate();
@@ -125,6 +168,23 @@ public class PaintView extends View {
 
     public void setCurrentColor(int color) {
         currentColor = color;
+    }
+
+    public void getWord(){
+        String[] words = { "Canard", "Vache", "Chat", "Pompiers", "Automobiliste", "Maison", "Immeuble", "Voiture", "Camion", "Ile", "Plage", "Coquillage", "Coquillette", "Spaghetti",
+                "Fleur", "Telephone", "Enveloppe", "Nenuphar", "Hexagone", "Pyramide", "Escarpin", "Escalator", "Escargot", "Lierre", "Vase", "Antenne", "Prise de courant", "Surfeur",
+                "Bouton", "Fauteuil", "Clavier", "Autoradio", "Tournevis", "Punaise", "Electricité", "Lumiere", "Horloge", "Pedalo" };
+        int rnd = new Random().nextInt(words.length);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(words[rnd]);
+        builder.setCancelable(true);
+        //builder.setPositiveButton("I agree", new OkOnClickListener());
+        //builder.setNegativeButton("No, no", new CancelOnClickListener());
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
     }
 
     @Override
@@ -144,33 +204,6 @@ public class PaintView extends View {
 
             mCanvas.drawPath(fp.path, mPaint);
 
-            /*____________TEST_CONNEXION__________________
-
-            addDrawingBoard();
-            drawingBoardRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // This method is called once with the initial value and again
-                    // whenever data at this location is updated.
-
-                    Iterable<DataSnapshot> list = dataSnapshot.getChildren();
-
-                    for (DataSnapshot data : list) {
-                        DrawingBoards value = data.getValue(DrawingBoards.class);
-                        Log.d(TAG, "paint is: " + value.getPaint());
-                        Log.d(TAG, "path is: " + value.getPath());
-                        Log.d(TAG, "created at is: " + value.getCreated_at());
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    // Failed to read value
-                    Log.w(TAG, "Failed to read value.", error.toException());
-                }
-            });
-
-            _____________________________________________________*/
 
         }
 
@@ -179,6 +212,8 @@ public class PaintView extends View {
     }
 
     private void touchStart(float x, float y) {
+        myLine = new Line(currentColor,emboss,blur,strokeWidth);
+        myLine.addPoint((int)x , (int)y);
         mPath = new Path();
         FingerPath fp = new FingerPath(currentColor, emboss, blur, strokeWidth, mPath);
         paths.add(fp);
@@ -193,19 +228,24 @@ public class PaintView extends View {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
 
+        /*int x1 = (int)x / 8;
+        int y1 = (int)y / 8;
+*/
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
             mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             mX = x;
             mY = y;
+            myLine.addPoint((int)mX,(int)mY);
         }
     }
 
     private void touchUp() {
-
         mPath.lineTo(mX, mY);
+        myLine.addPoint((int)mX,(int)mY);
 
-
-
+        Log.d("debug height","je suis "+ this.getHeight());
+        Log.d("debug width","je suis " + this.getWidth());
+        ref.child("lines").push().setValue(new Line(myLine.getColor(), myLine.isEmboss(), myLine.isBlur(), myLine.getStrokeWidth(), this.getHeight(), this.getWidth(),new ArrayList<PointP>(myLine.getListP())));
     }
 
     @Override
@@ -231,24 +271,46 @@ public class PaintView extends View {
         return true;
     }
 
+    public void addEventListener(){
 
-    //TEST AJOUT CONNEXION//
-
-
-/*
-
-    private void addDrawingBoard(){
-        String key = drawingBoardRef.push().getKey();
-        DrawingBoards drawingBoards = new DrawingBoards();
-        drawingBoards.setCreated_at(new Date().getTime());
-        drawingBoards.setPaint(mPaint);
-        drawingBoards.setPath(mPath);
-        //System.out.println(Arrays.toString(drawingBoards.toArray()));
-        System.out.println(drawingBoards);
-        drawingBoardRef.child(key).setValue(drawingBoards);
     }
-*/
 
+    public void drawLine(Line line){
+        if(mCanvas != null){
+            Log.d("debug drawLine","je suis dans drawline");
+            mPaint.setColor(line.getColor());
+            mPaint.setStrokeWidth(line.getStrokeWidth());
+            int x  = this.getHeight();
+            int y  = this.getWidth();
+            double scaleX = (double) this.getHeight() / (double) line.getHeightScreen();
+            double scaleY = (double) this.getWidth() / (double) line.getWidthScreen();
+            Log.d("debug scaleLine","scaleX" + scaleX);
+            Log.d("debug scaleLine","scaleY" + scaleY);
+            FingerPath fp = new FingerPath(line.getColor(), line.isEmboss(), line.isBlur(), line.getStrokeWidth(), getPathForPoints(line.getListP(),scaleX, scaleY));
+            paths.add(fp);
+        }
+    }
+
+    public static Path getPathForPoints(List<PointP> points, double scaleY, double scaleX) {
+        Path path = new Path();
+        PointP current = points.get(0);
+        path.moveTo(Math.round(scaleX * (double) current.getX()), Math.round(scaleY * (double) current.getY()));
+        PointP next = null;
+        for (int i = 1; i < points.size(); ++i) {
+            Log.d("X", Integer.toString( current.getX()));
+            next = points.get(i);
+            path.quadTo(
+                    Math.round(scaleX * (double) current.getX()), Math.round(scaleY * (double) current.getY()),
+                    Math.round(scaleX * ((double) next.getX() + (double) current.getX()) / 2), Math.round(scaleY * (next.getY() + (double) current.getY()) / 2)
+            );
+            current = next;
+        }
+        if (next != null) {
+            path.lineTo(Math.round(scaleX * (double)next.getX()), Math.round(scaleY * (double) next.getY()));
+        }
+
+        return path;
+    }
 }
 
-
+// ON TOUCH END GITHUB COURS REGARDER CREATE SCALED VERSION SEGMENT
