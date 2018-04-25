@@ -169,20 +169,23 @@ public class PaintView extends View {
     public void setCurrentColor(int color) {
         currentColor = color;
     }
-    /*
+
     public void getWord(){
         String[] words = { "Canard", "Vache", "Chat", "Pompiers", "Automobiliste", "Maison", "Immeuble", "Voiture", "Camion", "Ile", "Plage", "Coquillage", "Coquillette", "Spaghetti",
                 "Fleur", "Telephone", "Enveloppe", "Nenuphar", "Hexagone", "Pyramide", "Escarpin", "Escalator", "Escargot", "Lierre", "Vase", "Antenne", "Prise de courant", "Surfeur",
                 "Bouton", "Fauteuil", "Clavier", "Autoradio", "Tournevis", "Punaise", "Electricité", "Lumiere", "Horloge", "Pedalo" };
         int rnd = new Random().nextInt(words.length);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(words[rnd])
-                .setTitle("Votre mot à dessiner");
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(words[rnd]);
+        builder.setCancelable(true);
+        //builder.setPositiveButton("I agree", new OkOnClickListener());
+        //builder.setNegativeButton("No, no", new CancelOnClickListener());
         AlertDialog dialog = builder.create();
+        dialog.show();
 
 
-    }*/
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {

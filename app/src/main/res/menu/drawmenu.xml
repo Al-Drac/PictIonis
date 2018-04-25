@@ -33,4 +33,9 @@
         android:id="@+id/clear"
         app:showAsAction="never"
         android:title="Clear" />
+
+    <item
+        android:id="@+id/getWord"
+        app:showAsAction="never"
+        android:title="Mot à dessiner" />
 </menu>
