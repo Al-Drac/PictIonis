@@ -39,21 +39,15 @@ public class Chat extends AppCompatActivity {
             Intent in;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    //mTextMessage.setText(R.string.title_home);
-                    //Log.i(TAG, "hello");
-                    //return true;
                     in=new Intent(getBaseContext(),MainActivity.class);
                     startActivity(in);
                     overridePendingTransition(0, 0);
                     break;
                 case R.id.navigation_dashboard:
-                    //mTextMessage.setText(R.string.title_dashboard);
-                    //return true;
                     in=new Intent(getBaseContext(),DrawPlace.class);
                     startActivity(in);
                     overridePendingTransition(0, 0);
                     break;
-
 
                 case R.id.navigation_notifications:
                     in = new Intent(getBaseContext(), Chat.class);
@@ -78,8 +72,6 @@ public class Chat extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final EditText input = (EditText) findViewById(R.id.input);
         listView = (ListView) findViewById(R.id.list);
-
-        //showAllOldMessages();
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             // Start sign in/sign up activity
@@ -126,28 +118,6 @@ public class Chat extends AppCompatActivity {
             }
         }
     }
-
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_sign_out) {
-            AuthUI.getInstance().signOut(this)
-                    .addOnCompleteListener(new OnCompleteListener() {
-                        @Override
-                        public void onComplete(@NonNull Task task) {
-                            Toast.makeText(Chat.this, "You have logged out!", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
-        }
-        return true;
-    }*/
 
     private void showAllOldMessages() {
         loggedInUserName = FirebaseAuth.getInstance().getCurrentUser().getUid();

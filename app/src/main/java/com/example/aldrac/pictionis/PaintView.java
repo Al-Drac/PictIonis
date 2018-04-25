@@ -5,6 +5,7 @@ package com.example.aldrac.pictionis;
  */
 
 
+        import android.app.AlertDialog;
         import android.content.Context;
         import android.graphics.Bitmap;
         import android.graphics.BlurMaskFilter;
@@ -36,6 +37,7 @@ package com.example.aldrac.pictionis;
         import java.util.ArrayList;
         import java.util.Arrays;
         import java.util.Date;
+        import java.util.Random;
 
 
 public class PaintView extends View {
@@ -49,6 +51,7 @@ public class PaintView extends View {
     private Paint mPaint;
     private ArrayList<FingerPath> paths = new ArrayList<>();
     private ArrayList<Line> lines = new ArrayList<>();
+    //private ArrayList<String> words = new ArrayList<>();
     private int currentColor;
     private int backgroundColor = DEFAULT_BG_COLOR;
     private int strokeWidth;
@@ -162,6 +165,20 @@ public class PaintView extends View {
     public void setCurrentColor(int color) {
         currentColor = color;
     }
+    /*
+    public void getWord(){
+        String[] words = { "Canard", "Vache", "Chat", "Pompiers", "Automobiliste", "Maison", "Immeuble", "Voiture", "Camion", "Ile", "Plage", "Coquillage", "Coquillette", "Spaghetti",
+                "Fleur", "Telephone", "Enveloppe", "Nenuphar", "Hexagone", "Pyramide", "Escarpin", "Escalator", "Escargot", "Lierre", "Vase", "Antenne", "Prise de courant", "Surfeur",
+                "Bouton", "Fauteuil", "Clavier", "Autoradio", "Tournevis", "Punaise", "Electricité", "Lumiere", "Horloge", "Pedalo" };
+        int rnd = new Random().nextInt(words.length);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(words[rnd])
+                .setTitle("Votre mot à dessiner");
+        AlertDialog dialog = builder.create();
+
+
+    }*/
 
     @Override
     protected void onDraw(Canvas canvas) {
