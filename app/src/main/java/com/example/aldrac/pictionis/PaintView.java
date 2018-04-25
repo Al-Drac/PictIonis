@@ -96,6 +96,7 @@ public class PaintView extends View {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Line line = dataSnapshot.getValue(Line.class);
                 drawLine(line);
+                invalidate();
             }
 
             @Override
@@ -105,7 +106,9 @@ public class PaintView extends View {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                paths.clear();
+                normal();
+                invalidate();
             }
 
             @Override
@@ -150,6 +153,7 @@ public class PaintView extends View {
 
     public void clear() {
         backgroundColor = DEFAULT_BG_COLOR;
+        ref.removeValue();
         paths.clear();
         normal();
         invalidate();
@@ -245,36 +249,6 @@ public class PaintView extends View {
     }
 
     public void addEventListener(){
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("debug reception data", "je suis la");
-                if (dataSnapshot.getValue() != null){
-                    Log.d("debug reception data", "je suis ici");
-                    Line line = dataSnapshot.getValue(Line.class);
-                    mPaint.setColor(line.getColor());
-                    Log.d("color", Integer.toString(line.getColor()));
-                    mPaint.setStrokeWidth(line.getStrokeWidth());
-                    Log.d("width", Integer.toString(line.getStrokeWidth()));
-                    if (line.isEmboss())
-                        mPaint.setMaskFilter(mEmboss);
-                    else if (line.isBlur())
-                        mPaint.setMaskFilter(mBlur);
-                    drawLine(line);
-                    invalidate();
-                }
-                else{
-                    mCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                    mPath.reset();
-                    invalidate();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
     }
 
@@ -283,13 +257,13 @@ public class PaintView extends View {
             Log.d("debug drawLine","je suis dans drawline");
             mPaint.setColor(line.getColor());
             mPaint.setStrokeWidth(line.getStrokeWidth());
-            mCanvas.drawPath(getPathForPoints(line.getListP(), 1.0f),mPaint);
+            FingerPath fp = new FingerPath(line.getColor(), line.isEmboss(), line.isBlur(), line.getStrokeWidth(), getPathForPoints(line.getListP(),1.0));
+            paths.add(fp);
         }
     }
 
     public static Path getPathForPoints(List<PointP> points, double scale) {
         Path path = new Path();
-        scale = scale * 8;
         PointP current = points.get(0);
         path.moveTo(Math.round(scale * current.getX()), Math.round(scale * current.getY()));
         PointP next = null;
@@ -308,9 +282,6 @@ public class PaintView extends View {
 
         return path;
     }
-
-
-
 }
 
 // ON TOUCH END GITHUB COURS REGARDER CREATE SCALED VERSION SEGMENT
