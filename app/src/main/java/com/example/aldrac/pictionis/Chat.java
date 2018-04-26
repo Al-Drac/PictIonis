@@ -2,6 +2,7 @@ package com.example.aldrac.pictionis;
 
 import android.content.Intent;
 import android.os.Bundle;
+//import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -16,11 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.data.model.User;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class Chat extends AppCompatActivity {
 
@@ -30,6 +36,10 @@ public class Chat extends AppCompatActivity {
     private FirebaseListAdapter<ChatMessage> adapter;
     private ListView listView;
     private String loggedInUserName = "";
+
+
+    private User user;
+    private FirebaseUser owner;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -99,6 +109,21 @@ public class Chat extends AppCompatActivity {
                                     FirebaseAuth.getInstance().getCurrentUser().getUid())
                             );
                     input.setText("");
+
+
+
+                    FirebaseDatabase.getInstance()
+                            .getReference()
+                            .child("notifications")
+                            .child("messages")
+                            .push()
+                            .setValue(new ChatMessage(input.getText().toString(),
+                                    FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                                    FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            );
+                    input.setText("");
+
+
                 }
             }
         });
@@ -131,6 +156,8 @@ public class Chat extends AppCompatActivity {
     public String getLoggedInUserName() {
         return loggedInUserName;
     }
+
+
 
 
 }

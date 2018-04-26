@@ -1,4 +1,6 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -40,9 +42,11 @@ exports.sendNotification = functions.database.ref('/notifications/messages/{push
             admin.messaging().sendToDevice(instanceId, payload)
                 .then(function (response) {
                     console.log("Successfully sent message:", response);
+                    return null;
                 })
                 .catch(function (error) {
                     console.log("Error sending message:", error);
                 });
+                return null;
         });
     });

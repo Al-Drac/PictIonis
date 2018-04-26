@@ -1,0 +1,326 @@
+[debug] [2018-04-26T07:06:15.975Z] ----------------------------------------------------------------------
+[debug] [2018-04-26T07:06:15.978Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only functions
+[debug] [2018-04-26T07:06:15.978Z] CLI Version:   3.18.4
+[debug] [2018-04-26T07:06:15.978Z] Platform:      darwin
+[debug] [2018-04-26T07:06:15.978Z] Node Version:  v7.10.0
+[debug] [2018-04-26T07:06:15.979Z] Time:          Thu Apr 26 2018 09:06:15 GMT+0200 (CEST)
+[debug] [2018-04-26T07:06:15.979Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-04-26T07:06:15.993Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-26T07:06:15.994Z] > authorizing via signed-in user
+[debug] [2018-04-26T07:06:15.997Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/pictionis-9a96d  
+  
+ Thu Apr 26 2018 09:06:15 GMT+0200 (CEST)
+[debug] [2018-04-26T07:06:16.586Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:06:16.587Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/pictionis-9a96d/tokens  
+  
+ Thu Apr 26 2018 09:06:16 GMT+0200 (CEST)
+[debug] [2018-04-26T07:06:17.387Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'pictionis-9a96d'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2018-04-26T07:06:21.700Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.12.0",
+    "firebase-functions": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "eslint-plugin-promise": "^3.6.0"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-04-26T07:06:21.701Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/pictionis-9a96d?view=CONSUMER_VIEW  
+  
+ Thu Apr 26 2018 09:06:21 GMT+0200 (CEST)
+[debug] [2018-04-26T07:06:21.701Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/pictionis-9a96d?view=CONSUMER_VIEW  
+  
+ Thu Apr 26 2018 09:06:21 GMT+0200 (CEST)
+[debug] [2018-04-26T07:06:22.820Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:06:22.826Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2018-04-26T07:06:22.828Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/pictionis-9a96d  
+  
+ Thu Apr 26 2018 09:06:22 GMT+0200 (CEST)
+[debug] [2018-04-26T07:06:23.618Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:06:23.619Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/316014068337:getServerAppConfig  
+  
+ Thu Apr 26 2018 09:06:23 GMT+0200 (CEST)
+[debug] [2018-04-26T07:06:24.070Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2018-04-26T07:06:24.071Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/pictionis-9a96d/configs  
+  
+ Thu Apr 26 2018 09:06:24 GMT+0200 (CEST)
+[debug] [2018-04-26T07:06:24.288Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (50.7 KB) for uploading
+[debug] [2018-04-26T07:06:24.622Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/pictionis-9a96d/locations/us-central1/functions:generateUploadUrl  
+  
+ Thu Apr 26 2018 09:06:24 GMT+0200 (CEST)
+[debug] [2018-04-26T07:06:54.780Z] <<< HTTP RESPONSE 503
+[debug] [2018-04-26T07:06:54.781Z] <<< HTTP RESPONSE BODY {
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+[debug] [2018-04-26T07:06:54.782Z] TypeError: Cannot create property 'error' on string '{
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+'
+    at module.exports (/usr/local/lib/node_modules/firebase-tools/lib/responseToError.js:11:16)
+    at Request._callback (/usr/local/lib/node_modules/firebase-tools/lib/api.js:47:25)
+    at Request.self.callback (/usr/local/lib/node_modules/firebase-tools/node_modules/request/request.js:186:22)
+    at emitTwo (events.js:106:13)
+    at Request.emit (events.js:194:7)
+    at Request.<anonymous> (/usr/local/lib/node_modules/firebase-tools/node_modules/request/request.js:1163:10)
+    at emitOne (events.js:96:13)
+    at Request.emit (events.js:191:7)
+    at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/firebase-tools/node_modules/request/request.js:1085:12)
+    at Object.onceWrapper (events.js:293:19)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2018-04-26T07:08:04.034Z] ----------------------------------------------------------------------
+[debug] [2018-04-26T07:08:04.038Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only functions --debug
+[debug] [2018-04-26T07:08:04.039Z] CLI Version:   3.18.4
+[debug] [2018-04-26T07:08:04.039Z] Platform:      darwin
+[debug] [2018-04-26T07:08:04.039Z] Node Version:  v7.10.0
+[debug] [2018-04-26T07:08:04.040Z] Time:          Thu Apr 26 2018 09:08:04 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:04.040Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-04-26T07:08:04.054Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-26T07:08:04.055Z] > authorizing via signed-in user
+[debug] [2018-04-26T07:08:04.057Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/pictionis-9a96d  
+  
+ Thu Apr 26 2018 09:08:04 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:04.664Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:04.665Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/pictionis-9a96d/tokens  
+  
+ Thu Apr 26 2018 09:08:04 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:05.285Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'pictionis-9a96d'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2018-04-26T07:08:09.504Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.12.0",
+    "firebase-functions": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "eslint-plugin-promise": "^3.6.0"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-04-26T07:08:09.506Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/pictionis-9a96d?view=CONSUMER_VIEW  
+  
+ Thu Apr 26 2018 09:08:09 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:09.506Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/pictionis-9a96d?view=CONSUMER_VIEW  
+  
+ Thu Apr 26 2018 09:08:09 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:10.518Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:10.519Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2018-04-26T07:08:10.520Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/pictionis-9a96d  
+  
+ Thu Apr 26 2018 09:08:10 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:11.235Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:11.236Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/316014068337:getServerAppConfig  
+  
+ Thu Apr 26 2018 09:08:11 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:11.653Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2018-04-26T07:08:11.656Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/pictionis-9a96d/configs  
+  
+ Thu Apr 26 2018 09:08:11 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:11.859Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (50.7 KB) for uploading
+[debug] [2018-04-26T07:08:12.181Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/pictionis-9a96d/locations/us-central1/functions:generateUploadUrl  
+  
+ Thu Apr 26 2018 09:08:12 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:12.412Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:12.413Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-5af915f5-9a77-49d2-91c4-ae28f0bfc83e/0fc6ba5f-50a8-4533-9c9a-f112daac2261.zip?GoogleAccessId=316014068337@cloudservices.gserviceaccount.com&Expires=1524728328&Signature=GTRs2QluRRerdXTUJbUmnFkr6BLPLiPrzhPrtg0Jgu5VUHNegylIXOlKRMz%2FXAutF5Levgned5b8KNBA2f52rKSpv09ULC%2FzTZAw9m9B229Cbecek3bGbbVGBxK9MXM3ecAasJG80BpkQyLVKblV1p6tk6LVO1JOxx%2BSh2cIZRGvLvu9cIg3%2BdpP6bTwOBUMzPSIEjOR7ZRvFiux9MdHeF%2Fa8K%2FldphBSGdNuUZRYtz7zISQ9yvabDdidDGIeeLDSkSxAsKyuMzMOAGUL5nPCUos8N4WFJwrcovlG6BEYtigbB5kFit%2BeFR2xshPQaS84GlFNspyzVVA2WYhHHkzog%3D%3D  
+ ReadStream {
+  _readableState: 
+   ReadableState {
+     objectMode: false,
+     highWaterMark: 65536,
+     buffer: BufferList { head: [Object], tail: [Object], length: 1 },
+     length: 51920,
+     pipes: null,
+     pipesCount: 0,
+     flowing: null,
+     ended: true,
+     endEmitted: false,
+     reading: false,
+     sync: false,
+     needReadable: false,
+     emittedReadable: true,
+     readableListening: false,
+     resumeScheduled: false,
+     defaultEncoding: 'utf8',
+     ranOut: false,
+     awaitDrain: 0,
+     readingMore: false,
+     decoder: null,
+     encoding: null },
+  readable: true,
+  domain: null,
+  _events: { end: [Function] },
+  _eventsCount: 1,
+  _maxListeners: undefined,
+  path: '/var/folders/6m/bgwljdb92nvfzm_v1r_1nfrw0000gn/T/firebase-functions-31368LV3YW5cP6plK.zip',
+  fd: 19,
+  flags: 'r',
+  mode: 438,
+  start: undefined,
+  end: undefined,
+  autoClose: true,
+  pos: undefined,
+  bytesRead: 51920 } 
+ Thu Apr 26 2018 09:08:12 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:12.801Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: functions folder uploaded successfully
+[debug] [2018-04-26T07:08:12.803Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/pictionis-9a96d/locations/us-central1/functions  
+  
+ Thu Apr 26 2018 09:08:12 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:13.001Z] <<< HTTP RESPONSE 200
+[info] i  functions: creating function sendNotification...
+[debug] [2018-04-26T07:08:13.003Z] Trigger is:  {"eventTrigger":{"resource":"projects/_/instances/pictionis-9a96d/refs/notifications/messages/{pushId}","eventType":"providers/google.firebase.database/eventTypes/ref.write","service":"firebaseio.com"}}
+[debug] [2018-04-26T07:08:13.004Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/pictionis-9a96d/locations/us-central1/functions  
+ { sourceUploadUrl: 'https://storage.googleapis.com/gcf-upload-us-central1-5af915f5-9a77-49d2-91c4-ae28f0bfc83e/0fc6ba5f-50a8-4533-9c9a-f112daac2261.zip?GoogleAccessId=316014068337@cloudservices.gserviceaccount.com&Expires=1524728328&Signature=GTRs2QluRRerdXTUJbUmnFkr6BLPLiPrzhPrtg0Jgu5VUHNegylIXOlKRMz%2FXAutF5Levgned5b8KNBA2f52rKSpv09ULC%2FzTZAw9m9B229Cbecek3bGbbVGBxK9MXM3ecAasJG80BpkQyLVKblV1p6tk6LVO1JOxx%2BSh2cIZRGvLvu9cIg3%2BdpP6bTwOBUMzPSIEjOR7ZRvFiux9MdHeF%2Fa8K%2FldphBSGdNuUZRYtz7zISQ9yvabDdidDGIeeLDSkSxAsKyuMzMOAGUL5nPCUos8N4WFJwrcovlG6BEYtigbB5kFit%2BeFR2xshPQaS84GlFNspyzVVA2WYhHHkzog%3D%3D',
+  name: 'projects/pictionis-9a96d/locations/us-central1/functions/sendNotification',
+  entryPoint: 'sendNotification',
+  labels: { 'deployment-tool': 'cli-firebase' },
+  eventTrigger: 
+   { resource: 'projects/_/instances/pictionis-9a96d/refs/notifications/messages/{pushId}',
+     eventType: 'providers/google.firebase.database/eventTypes/ref.write',
+     service: 'firebaseio.com' } } 
+ Thu Apr 26 2018 09:08:13 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:13.324Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:13.327Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:13 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:13.509Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:15.512Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:15 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:15.693Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:17.696Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:17 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:17.885Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:19.892Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:19 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:20.076Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:22.082Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:22 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:22.268Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:24.270Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:24 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:24.476Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:26.477Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:26 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:26.666Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:28.673Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:28 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:28.848Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:30.853Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:30 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:31.037Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:33.040Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:33 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:33.216Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:35.219Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:35 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:35.409Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:37.411Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:37 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:37.596Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:39.600Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:39 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:39.785Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:41.789Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:41 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:41.965Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:43.971Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:43 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:44.179Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:46.180Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:46 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:46.355Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:48.359Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:48 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:48.533Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:50.539Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:50 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:50.717Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:52.726Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:52 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:52.914Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:54.917Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:54 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:55.107Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:57.109Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:57 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:57.289Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-26T07:08:59.295Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/cGljdGlvbmlzLTlhOTZkL3VzLWNlbnRyYWwxL3NlbmROb3RpZmljYXRpb24vRjJSUXFDWGN4d0E  
+  
+ Thu Apr 26 2018 09:08:59 GMT+0200 (CEST)
+[debug] [2018-04-26T07:08:59.476Z] <<< HTTP RESPONSE 200
+[info] ✔  functions[sendNotification]: Successful create operation. 
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/pictionis-9a96d/overview
