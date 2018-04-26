@@ -179,8 +179,6 @@ public class PaintView extends View {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(words[rnd]);
         builder.setCancelable(true);
-        //builder.setPositiveButton("I agree", new OkOnClickListener());
-        //builder.setNegativeButton("No, no", new CancelOnClickListener());
         AlertDialog dialog = builder.create();
         dialog.show();
 
